@@ -16,6 +16,7 @@ class App extends React.Component {
         };
         this.handleAdd = this.handleAdd.bind(this);
         this.handleRemove = this.handleRemove.bind(this);
+        this.handleSearch = this.handleSearch.bind(this);
     }
 
     componentDidMount() {
@@ -58,6 +59,16 @@ class App extends React.Component {
 
     // ***************** Event Handlers *****************
 
+    handleSearch(event) {
+        // let {name, value} = event.target;
+        console.log("Name:", event.target.name);
+        console.log("Value:", event.target.value);
+        this.setState({
+            [event.target.name]: event.target.value
+        });
+        
+    }
+
     handleAdd(key) {
         let targetChar;
 
@@ -99,15 +110,19 @@ class App extends React.Component {
     }
 
     render() {
+        let results = this.state.search === "" ? 
+            "Results:" : 
+            `Results for "${this.state.search}":`;
+
         return (
             <div className="container">
                 <BrowserRouter>
                     <div className="grid-container">
                             <Route path="/" exact component={() => (
-                                <Search />
+                                <Search handleSearch={this.handleSearch} value={this.state.search}/>
                             )} />
                             <Route path="/" exact component={() => (
-                                <Display title="Results:" data={this.state.characters} handleClick={this.handleAdd} displayNominate={true} nominations={this.state.nominations} />
+                                <Display title={results} data={this.state.characters} handleClick={this.handleAdd} displayNominate={true} nominations={this.state.nominations} />
                             )} />
                             <Route path="/" exact component={() => (
                                 <Display title="Current Nominations:" data={this.state.nominations} handleClick={this.handleRemove} displayNominate={false} nominations={this.state.nominations} />
