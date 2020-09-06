@@ -1,7 +1,8 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route} from 'react-router-dom';
+import { BrowserRouter, Route} from 'react-router-dom';
 import Display from './components/Display';
 import CharacterDetail from './components/CharacterDetail';
+import Search from './components/Search';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 
@@ -11,6 +12,7 @@ class App extends React.Component {
         this.state = {
             characters: [],
             nominations: [],
+            search: ""
         };
         this.handleAdd = this.handleAdd.bind(this);
         this.handleRemove = this.handleRemove.bind(this);
@@ -40,29 +42,22 @@ class App extends React.Component {
         });
     }
 
-    // handleAdd(key) {
-    //     let targetChar;
-    //     let copyState = [];
+    onNextFrame(callback) {
+        setTimeout(function () {
+            requestAnimationFrame(callback)
+        }, 10)
+    }
 
-    //     if (this.state.nominations.length < 5) {
-    //         for (let i = 0; i < this.state.characters.length; i++) {
-    //             let currentChar = this.state.characters[i];
-    //             if (key === this.getKey(currentChar.url)) {
-    //                 targetChar = currentChar;
-    //             } else {
-    //                 copyState.push(currentChar);
-    //             }
-    //         }
-    //         this.setState((prevState) => {
-    //             return {
-    //                 characters: copyState,
-    //                 nominations: [...prevState.nominations, targetChar]
-    //             }
-    //         });
-    //     } else {
-    //         alert("I am sorry, but you have too many nominations already... Dingus.");
-    //     }
-    // }
+    componentDidUpdate() {
+        this.onNextFrame(() => {
+            if (this.state.nominations.length === 5) {
+                alert("Awesome! You've added your 5 nominations");
+            }
+        });
+    }
+
+    // ***************** Event Handlers *****************
+
     handleAdd(key) {
         let targetChar;
 
@@ -85,39 +80,6 @@ class App extends React.Component {
         }
     }
 
-    onNextFrame(callback) {
-        setTimeout(function () {
-            requestAnimationFrame(callback)
-        }, 10)
-    }
-
-    componentDidUpdate() {
-        this.onNextFrame(() => {
-            if (this.state.nominations.length === 5) {
-                alert("Awesome! You've added your 5 nominations");
-            }
-        });
-    }
-
-    // handleRemove(key) {
-    //     let targetChar;
-    //     let copyState = [];
-
-    //     for (let i = 0; i < this.state.nominations.length; i++) {
-    //         let currentChar = this.state.nominations[i];
-    //         if (key === this.getKey(currentChar.url)) {
-    //             targetChar = currentChar;
-    //         } else {
-    //             copyState.push(currentChar);
-    //         }
-    //     }
-    //     this.setState((prevState) => {
-    //         return {
-    //             characters: [...prevState.characters, targetChar],
-    //             nominations: copyState
-    //         }
-    //     });
-    // }
     handleRemove(key) {
         let copyState = this.state.nominations.filter((nomination) => {
             if (key !== this.getKey(nomination.url)){
@@ -138,16 +100,21 @@ class App extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="container">
                 <BrowserRouter>
-                    <div className="flex-container">
-                        <Route path="/" exact component={() => (
-                            <Display title="Results:" data={this.state.characters} handleClick={this.handleAdd} displayNominate={true} nominations={this.state.nominations} />
-                        )}/>
-                        <Route path="/" exact component={() => (
-                            <Display title="Current Nominations:" data={this.state.nominations} handleClick={this.handleRemove} displayNominate={false} nominations={this.state.nominations} />
-                        )} />
-                        <Route path="/:name" render={(props) => (<CharacterDetail handleAdd={this.handleAdd} handleRemove={this.handleRemove} nominations={this.state.nominations} {...props} />)}/>
+                    <div className="grid-container">
+                            <Route path="/" exact component={() => (
+                                <Search />
+                            )} />
+                            <Route path="/" exact component={() => (
+                                <Display title="Results:" data={this.state.characters} handleClick={this.handleAdd} displayNominate={true} nominations={this.state.nominations} />
+                            )} />
+                            <Route path="/" exact component={() => (
+                                <Display title="Current Nominations:" data={this.state.nominations} handleClick={this.handleRemove} displayNominate={false} nominations={this.state.nominations} />
+                            )} />
+                            <Route path="/:name" render={(props) => (
+                                <CharacterDetail handleAdd={this.handleAdd} handleRemove={this.handleRemove} nominations={this.state.nominations} {...props} />
+                            )}/>
                     </div>
                 </BrowserRouter>
             </div>

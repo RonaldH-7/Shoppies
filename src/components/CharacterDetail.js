@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 class CharacterDetail extends React.Component {
     constructor() {
@@ -45,10 +47,13 @@ class CharacterDetail extends React.Component {
             <Button variant="success" size="sm" onClick={()=>{this.props.handleAdd(key)}}>Nominate</Button>;
 
         return (
-            <div>
+            <div className="flex-container">
                 {
                     this.state.isLoading ?
-                    <h1>Loading...</h1> :
+                    <div className="loading">
+                        <FontAwesomeIcon icon={faSpinner} spin size="2x" />
+                        <h1 style={{display: "inline-block"}}>&nbsp;Loading</h1>
+                    </div> :
                     <div>
                         <h1>{this.state.characterInfo.name}</h1>
                         <div className="flex-container">
