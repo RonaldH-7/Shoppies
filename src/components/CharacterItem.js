@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 
 class CharacterItem extends React.Component {
     render() {
-        let key = this.getKey(this.props.data.url);
+        let key = this.props.movie.imdbID;
         let buttonText = this.props.displayNominate ? "Nominate" : "Remove";
         let variant = this.props.displayNominate ? "success" : "danger";
         let button = this.props.displayNominate ? 
@@ -14,7 +14,7 @@ class CharacterItem extends React.Component {
         return (
             <li className="mt-3">
                 <Link to={`/${key}`}>
-                    {this.props.data.name}
+                    {this.props.movie.Title}
                 </Link>
                 {button}
             </li>
@@ -24,16 +24,11 @@ class CharacterItem extends React.Component {
     isNominated() {
         let nominations = this.props.nominations;
         for (let i = 0; i < nominations.length; i++) {
-            if (nominations[i].name === this.props.data.name) {
+            if (nominations[i].imdbID === this.props.movie.imdbID) {
                 return true;
             }
         }
         return false;
-    }
-
-    getKey(url) {
-        let key = url.slice(28, url.length - 1);
-        return key;
     }
 }
 

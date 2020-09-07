@@ -12,61 +12,82 @@ class App extends React.Component {
         this.state = {
             characters: [],
             nominations: [],
-            search: ""
+            search: "",
+            searched: false,
+            searchedTerm: "",
+            error: ""
         };
         this.handleAdd = this.handleAdd.bind(this);
         this.handleRemove = this.handleRemove.bind(this);
+        this.handleChange = this.handleChange.bind(this);
         this.handleSearch = this.handleSearch.bind(this);
     }
 
-    componentDidMount() {
-        this.fetchCharacters("https://swapi.dev/api/people/");
-    }
+    // onNextFrame(callback) {
+    //     setTimeout(function () {
+    //         requestAnimationFrame(callback)
+    //     }, 10)
+    // }
 
-    fetchCharacters(url) {
-        fetch(url)
-        .then((response) => {
-            return response.json();
-        })
-        .then((data) => {
-            data.results.forEach((char) => {
-                this.setState((prevState) => {
-                    return {
-                        characters: [...prevState.characters, char]
-                    }
+    // componentDidUpdate() {
+    //     this.onNextFrame(() => {
+    //         if (this.state.nominations.length === 5) {
+    //             alert("Awesome! You've added your 5 nominations");
+    //         }
+    //     });
+    // }
+
+    fetchMovies() {
+        let uri = `http://www.omdbapi.com/?apikey=b49c2121&type=movie&s=${this.state.search}`;
+        let encodedURI = encodeURI(uri)
+        console.log(encodedURI);
+        fetch(encodedURI)
+            .then((response) => {
+                this.setState({
+                    characters: []
                 });
-            });
-            
-            // if (data.next) {
-            //     this.fetchCharacters(data.next);
-            // }
-        });
-    }
-
-    onNextFrame(callback) {
-        setTimeout(function () {
-            requestAnimationFrame(callback)
-        }, 10)
-    }
-
-    componentDidUpdate() {
-        this.onNextFrame(() => {
-            if (this.state.nominations.length === 5) {
-                alert("Awesome! You've added your 5 nominations");
-            }
-        });
+                return response.json();
+            })
+            .then((data) => {
+                if (data.Response === "True") {
+                    data.Search.forEach((char) => {
+                        this.setState((prevState) => {
+                            return {
+                                characters: [...prevState.characters, char]
+                            }
+                        });
+                    });
+                } else {
+                    this.setState({
+                        error: data.Error
+                    });
+                }
+            })
+            .then(() => {
+                console.log(this.state.characters);
+            });        
     }
 
     // ***************** Event Handlers *****************
 
-    handleSearch(event) {
-        // let {name, value} = event.target;
-        console.log("Name:", event.target.name);
-        console.log("Value:", event.target.value);
+    handleChange(event) {
+        let {name, value} = event.target;
+
         this.setState({
-            [event.target.name]: event.target.value
+            [name]: value
         });
-        
+    }
+
+    handleSearch(event) {
+        if (!event || (event && event.keyCode === 13)) {
+            this.fetchMovies();
+            this.setState((prevState) => {
+                return {
+                    searched: true,
+                    searchedTerm: prevState.search
+                }
+            });
+        }
     }
 
     handleAdd(key) {
@@ -77,7 +98,7 @@ class App extends React.Component {
         } else {
             for (let i = 0; i < this.state.characters.length; i++) {
                 let currentChar = this.state.characters[i];
-                if (key === this.getKey(currentChar.url)) {
+                if (key === currentChar.imdbID) {
                     targetChar = currentChar;
                     break;
                 }
@@ -89,11 +110,15 @@ class App extends React.Component {
                 }
             });
         }
+
+        if (this.state.nominations.length === 4) {
+            alert("Awesome! You've added your 5 nominations");
+        }
     }
 
     handleRemove(key) {
         let copyState = this.state.nominations.filter((nomination) => {
-            if (key !== this.getKey(nomination.url)){
+            if (key !== nomination.imdbID) {
                 return true;
             }
             return false;
@@ -104,30 +129,25 @@ class App extends React.Component {
         });
     }
 
-    getKey(url) {
-        let key = url.slice(28, url.length - 1);
-        return key;
-    }
-
     render() {
-        let results = this.state.search === "" ? 
-            "Results:" : 
-            `Results for "${this.state.search}":`;
+        let results = this.state.searched ? 
+            `Results for "${this.state.searchedTerm}":` :
+            "Search for something!"
 
         return (
             <div className="container">
                 <BrowserRouter>
                     <div className="grid-container">
                             <Route path="/" exact component={() => (
-                                <Search handleSearch={this.handleSearch} value={this.state.search}/>
+                                <Search handleChange={this.handleChange} handleSearch={this.handleSearch} value={this.state.search}/>
                             )} />
                             <Route path="/" exact component={() => (
-                                <Display title={results} data={this.state.characters} handleClick={this.handleAdd} displayNominate={true} nominations={this.state.nominations} />
+                                <Display title={results} movies={this.state.characters} handleClick={this.handleAdd} displayNominate={true} nominations={this.state.nominations} error={this.state.error} />
                             )} />
                             <Route path="/" exact component={() => (
-                                <Display title="Current Nominations:" data={this.state.nominations} handleClick={this.handleRemove} displayNominate={false} nominations={this.state.nominations} />
+                                <Display title="Current Nominations:" movies={this.state.nominations} handleClick={this.handleRemove} displayNominate={false} nominations={this.state.nominations} error={this.state.error} />
                             )} />
-                            <Route path="/:name" render={(props) => (
+                            <Route path="/:imdbID" render={(props) => (
                                 <CharacterDetail handleAdd={this.handleAdd} handleRemove={this.handleRemove} nominations={this.state.nominations} {...props} />
                             )}/>
                     </div>

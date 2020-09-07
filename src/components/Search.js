@@ -11,18 +11,23 @@ class Search extends React.Component {
 
     render() {
         return (
-            <Form className="search-component">
+            <Form className="search-component" onSubmit={(event) => {event.preventDefault()}}>
                 <Form.Group controlId="search">
                     <Form.Control
                         type="text" 
-                        placeholder="Search..." 
+                        placeholder="Search by movie title..." 
                         className="search" 
                         name="search" 
                         value={this.props.value} 
-                        onChange={(event)=>{this.props.handleSearch(event)}}
-                        ref={(input) => { this.nameInput = input; }}
+                        onChange={(event) => {this.props.handleChange(event)}}
+                        onKeyDown={(event) => {this.props.handleSearch(event)}}
+                        ref={(input) => {this.nameInput = input;}}
                     />
-                    <Button variant="primary" type="submit" className="search-button">
+                    <Button 
+                        variant="primary" 
+                        className="search-button"
+                        onClick={() => {this.props.handleSearch()}}
+                    >
                         <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
                     </Button>
                 </Form.Group>

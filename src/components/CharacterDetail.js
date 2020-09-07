@@ -13,12 +13,17 @@ class CharacterDetail extends React.Component {
         };
     }
     componentDidMount() {
-        let key = this.props.match.url;
-        let url = `https://swapi.dev/api/people${key}`;
+        console.log(this.props.match.params.imdbID);
+
+        let imdbID = this.props.match.params.imdbID;
+
+        let uri = `http://www.omdbapi.com/?apikey=b49c2121&i=${imdbID}`;
+        let encodedURI = encodeURI(uri)
+        console.log(encodedURI);
 
         this.setState({isLoading: true});
 
-        fetch(url)
+        fetch(encodedURI)
             .then((response) => {
                 return response.json();
             })
@@ -33,7 +38,7 @@ class CharacterDetail extends React.Component {
     isNominated() {
         let nominations = this.props.nominations;
         for (let i = 0; i < nominations.length; i++) {
-            if (nominations[i].name === this.state.characterInfo.name) {
+            if (nominations[i].imdbID === this.state.characterInfo.imdbID) {
                 return true;
             }
         }
@@ -41,7 +46,7 @@ class CharacterDetail extends React.Component {
     }
 
     render() {
-        let key = this.props.match.params.name;
+        let key = this.props.match.params.imdbID;
         let button = this.isNominated() ?
             <Button variant="danger" size="sm" onClick={()=>{this.props.handleRemove(key)}}>Remove</Button> :
             <Button variant="success" size="sm" onClick={()=>{this.props.handleAdd(key)}}>Nominate</Button>;
@@ -55,17 +60,19 @@ class CharacterDetail extends React.Component {
                         <h1 style={{display: "inline-block"}}>&nbsp;Loading</h1>
                     </div> :
                     <div>
-                        <h1>{this.state.characterInfo.name}</h1>
+                        <h1>{this.state.characterInfo.Title}</h1>
                         <div className="flex-container">
                             <Link to="/">
                                 <Button size="sm">Home</Button>
                             </Link>
                             {button}
                         </div>
-                        <p>Height: {this.state.characterInfo.height}</p>
-                        <p>Weight: {this.state.characterInfo.mass}</p>
-                        <p>Birth year: {this.state.characterInfo.birth_year}</p>
-                        <p>Gender: {this.state.characterInfo.gender}</p>
+                        <p>Year: {this.state.characterInfo.Year}</p>
+                        <p>Rated: {this.state.characterInfo.Rated}</p>
+                        <p>Released: {this.state.characterInfo.Released}</p>
+                        <p>Runtime: {this.state.characterInfo.Runtime}</p>
+                        <p>BoxOffice: {this.state.characterInfo.BoxOffice}</p>
+                        <p>Plot: {this.state.characterInfo.Plot}</p>
                     </div>
                 }
             </div>

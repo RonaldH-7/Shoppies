@@ -3,36 +3,31 @@ import CharacterItem from './CharacterItem';
 
 class Display extends React.Component {
     render() {
-        let displayItems = this.props.data.map((item) => {
+        let displayMovies = this.props.movies.map((movie) => {
             return <CharacterItem 
-                        key={this.getKey(item.url)} 
-                        data={item} 
+                        key={movie.imdbID} 
+                        movie={movie} 
                         handleClick={this.props.handleClick} 
                         displayNominate={this.props.displayNominate}
                         isNominated={this.props.isNominated}
                         nominations={this.props.nominations}
                     />
         });
-        let msg = this.props.displayNominate ? "No search results" : "No nominations";
+        let msg = this.props.displayNominate ? this.props.error : "No nominations";
         let displayMsg = <p>{msg}</p>;
 
         return (
             <div className="display">
                 <h5>{this.props.title}</h5>
                 {
-                    displayItems.length ?
+                    displayMovies.length ?
                     <ul>
-                        {displayItems}
+                        {displayMovies}
                     </ul> :
                     displayMsg
                 }
             </div>
         );
-    }
-
-    getKey(url) {
-        let key = url.slice(28, url.length - 1);
-        return key;
     }
 }
 
