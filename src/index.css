@@ -24,6 +24,11 @@ header {
     border-bottom: 1px solid lightgrey;
 }
 
+.header-container {
+    display: flex;
+    align-items: center;
+}
+
 /*** Navigation Component ***/
 
 .nav-link {
