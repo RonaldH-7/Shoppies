@@ -39,7 +39,7 @@ class MovieDetail extends React.Component {
     }
 
     fetchMovie(imdbID) {
-        let uri = `http://www.omdbapi.com/?apikey=b49c2121&i=${imdbID}`;
+        let uri = `https://www.omdbapi.com/?apikey=b49c2121&i=${imdbID}`;
         let encodedURI = encodeURI(uri)
         
         this.setState({isLoading: true});

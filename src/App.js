@@ -27,7 +27,7 @@ class App extends React.Component {
     }
 
     fetchMovies() {
-        let uri = `http://www.omdbapi.com/?apikey=b49c2121&type=movie&s=${this.state.search}`;
+        let uri = `https://www.omdbapi.com/?apikey=b49c2121&type=movie&s=${this.state.search}`;
         let encodedURI = encodeURI(uri)
 
         fetch(encodedURI)
