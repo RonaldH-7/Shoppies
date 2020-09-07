@@ -24,7 +24,7 @@ class MovieDetail extends React.Component {
     }
 
     fetchPoster(imdbID) {
-        let uri = `http://img.omdbapi.com/?apikey=b49c2121&i=${imdbID}`;
+        let uri = `https://img.omdbapi.com/?apikey=b49c2121&i=${imdbID}`;
         let encodedURI = encodeURI(uri)
 
         fetch(encodedURI)
