@@ -167,10 +167,11 @@ class App extends React.Component {
                         <Route path="/" exact component={() => (
                             <Display title="Current Nominations:" movies={this.state.nominations} handleClick={this.handleRemove} displayNominate={false} nominations={this.state.nominations} error={this.state.error} />
                         )} />
-                        <Route path="/detail/:imdbID" render={(props) => (
-                            <MovieDetail handleAdd={this.handleAdd} handleRemove={this.handleRemove} nominations={this.state.nominations} {...props} />
-                        )}/>
                     </div>
+
+                    <Route path="/detail/:imdbID" render={(props) => (
+                        <MovieDetail handleAdd={this.handleAdd} handleRemove={this.handleRemove} nominations={this.state.nominations} {...props} />
+                    )}/>
                 </BrowserRouter>
             </div>
         );

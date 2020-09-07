@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import MovieDetailItem from './MovieDetailItem';
 import Button from 'react-bootstrap/Button';
+import Table from 'react-bootstrap/Table'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
@@ -66,36 +68,49 @@ class MovieDetail extends React.Component {
 
     render() {
         let key = this.props.match.params.imdbID;
-        let button = this.isNominated() ?
-            <Button variant="danger" size="sm" onClick={()=>{this.props.handleRemove(key)}}>Remove</Button> :
-            <Button variant="success" size="sm" onClick={()=>{this.props.handleAdd(key)}}>Nominate</Button>;
-        let image = this.state.hasPoster ? 
-            <img src={this.state.poster} alt={`Movie poster for ${this.state.movieInfo.Title}`}/> :
+        let buttonJSX = this.isNominated() ?
+            <Button className="movie-detail-button" variant="danger" size="sm" onClick={()=>{this.props.handleRemove(key)}}>Remove</Button> :
+            <Button className="movie-detail-button" variant="success" size="sm" onClick={()=>{this.props.handleAdd(key)}}>Nominate</Button>;
+        let imageJSX = this.state.hasPoster ? 
+            <img src={this.state.poster} alt={`Movie poster for ${this.state.movieInfo.Title}`} style={{marginLeft: "20px"}} /> :
             null;
+        let loadingJSX = (
+            <div className="loading">
+                <FontAwesomeIcon icon={faSpinner} spin size="2x" />
+                <h1 style={{display: "inline-block"}}>&nbsp;Loading</h1>
+            </div>
+        );
+        let movieDetailJSX = (
+            <div className="movie-detail-container">
+                <h2 className="movie-detail-title">{this.state.movieInfo.Title}</h2>
+                <div className="movie-detail-buttons">
+                    <Link to="/">
+                        <Button size="sm" className="movie-detail-button">Home</Button>
+                    </Link>
+                    {buttonJSX}
+                </div>
+                <Table striped bordered size="sm">
+                    <tbody>
+                        <MovieDetailItem heading="Year:" value={this.state.movieInfo.Year} />
+                        <MovieDetailItem heading="Genre:" value={this.state.movieInfo.Genre} />
+                        <MovieDetailItem heading="Rated:" value={this.state.movieInfo.Rated} />
+                        <MovieDetailItem heading="Runtime:" value={this.state.movieInfo.Runtime} />
+                        <MovieDetailItem heading="Box office:" value={this.state.movieInfo.BoxOffice} />
+                        <MovieDetailItem heading="Plot:" value={this.state.movieInfo.Plot} />
+                        <MovieDetailItem heading="IMDB Rating:" value={this.state.movieInfo.imdbRating} />
+                        <MovieDetailItem heading="IMDB Votes:" value={this.state.movieInfo.imdbVotes} />
+                    </tbody>
+                </Table>
+                {imageJSX}
+            </div>
+        );
 
         return (
-            <div className="flex-container">
+            <div>
                 {
                     this.state.isLoading ?
-                    <div className="loading">
-                        <FontAwesomeIcon icon={faSpinner} spin size="2x" />
-                        <h1 style={{display: "inline-block"}}>&nbsp;Loading</h1>
-                    </div> :
-                    <div>
-                        <h1>{this.state.movieInfo.Title}</h1>
-                        <div className="flex-container">
-                            <Link to="/">
-                                <Button size="sm">Home</Button>
-                            </Link>
-                            {button}
-                        </div>
-                        {image}
-                        <p>Year: {this.state.movieInfo.Year}</p>
-                        <p>Rated: {this.state.movieInfo.Rated}</p>
-                        <p>Runtime: {this.state.movieInfo.Runtime}</p>
-                        <p>BoxOffice: {this.state.movieInfo.BoxOffice}</p>
-                        <p>Plot: {this.state.movieInfo.Plot}</p>
-                    </div>
+                        loadingJSX :
+                        movieDetailJSX
                 }
             </div>
         );

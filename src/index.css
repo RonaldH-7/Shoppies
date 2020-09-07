@@ -1,27 +1,34 @@
-.display {
-    border: 1px solid black;
-    margin: 10px 0 10px 0;
+/*** General ***/
+* {
+    font-family: 'Quicksand', sans-serif;
+}
+
+body > #root > div {
+    height: 100vh;
+}
+
+/*** Header Component ***/
+
+header {
+    /* border: 1px solid black; */
+    margin: 0 0 10px 0;
     padding: 10px;
-    border-collapse: collapse;
+    border-bottom: 1px solid lightgrey;
+    /* background-color: #429EA6; */
+    /* color: white; */
 }
 
-.display:first-of-type {
-    border-right: 0px;
-}
-
-.flex-container {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-}
+/*** App Component***/
 
 .component {
-    border: 1px solid black;
+    border: 100px solid red;
 }
 
 .app-container {
     width: 65%;
+    /* height: 100%; */
     margin: auto;
+    /* background-color: #ECEBE4; */
 }
 
 .grid-container {
@@ -30,23 +37,18 @@
     justify-self: center;
 }
 
+/*** Search Component ***/
+
 .search-component {
     grid-column-start: 1;
     grid-column-end: 3;
     margin: 10px 0 10px 0;
     padding: 10px;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 
 .search-description {
     margin-bottom: 5px;
-}
-
-.loading {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .search {
@@ -60,9 +62,64 @@
     border-radius: 0px;
 }
 
+/*** Display Component ***/
+
+.display {
+    /* border: 1px solid black; */
+    margin: 10px 0 10px 0;
+    padding: 10px;
+    border-collapse: collapse;
+}
+
+.display:first-of-type {
+    /* border-right: 0px; */
+}
+
+/*** MovieDetail Component ***/
+
+.loading {
+    display: flex;
+    margin: 20px auto 0px auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-container {
+    display: flex;
+    align-items: flex-start;
+}
+
+.movie-detail-container {
+    display: grid;
+    grid-template-columns: 40% auto;
+    padding: 10px;
+}
+
+.movie-detail-title {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    margin: 0.2em 0 0.2em 0;
+    /* justify-self: center; */
+}
+
+.movie-detail-buttons {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    margin-bottom: 0.5em;
+}
+
+.movie-detail-button {
+    margin-right: 10px;
+}
+
+/*** MovieItem Component ***/
+
 .movieItem {
     overflow-wrap: break-word;
+    background-color: #f8f8f4;
 }
+
+/*** AlertDisplay Component ***/
 
 .close-icon {
     float: right;
@@ -76,12 +133,15 @@
     display: inline;
 }
 
-header {
-    border: 1px solid black;
-    margin: 10px 0 10px 0;
-    padding: 10px;
-}
+/*** About Component ***/
 
 .about-container {
     width: 60%;
+    padding: 10px;
+}
+
+/*** Contact Component ***/
+
+.contact-container {
+    padding: 10px;
 }

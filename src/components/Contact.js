@@ -3,11 +3,12 @@ import React from 'react';
 class Contact extends React.Component {
     render() {
         return (
-            <div>
+            <div className="contact-container">
                 <h2>Contact</h2>
                 <p>
                     This website was developed by Ronald Hua as part of his application for an internship at Shopify for Winter 2021.<br/>
-
+                </p>
+                <p>
                     You can connect with Ron at: 
                 </p>
                 <ul>

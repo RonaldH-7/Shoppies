@@ -14,9 +14,9 @@ class Search extends React.Component {
             <Form className="search-component" onSubmit={(event) => {event.preventDefault()}}>
                 <p className="search-description"><strong>Search by movie title:</strong></p>
                 <Form.Control
+                    className="search" 
                     type="text" 
                     placeholder="Search..." 
-                    className="search" 
                     name="search" 
                     value={this.props.value} 
                     onChange={(event) => {this.props.handleChange(event)}}
