@@ -1,11 +1,11 @@
 import React from 'react';
-import CharacterItem from './CharacterItem';
+import MovieItem from './MovieItem';
 import ListGroup from 'react-bootstrap/ListGroup';
 
 class Display extends React.Component {
     render() {
         let displayMovies = this.props.movies.map((movie) => {
-            return <CharacterItem 
+            return <MovieItem 
                         key={movie.imdbID} 
                         movie={movie} 
                         handleClick={this.props.handleClick} 

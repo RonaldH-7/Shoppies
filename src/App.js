@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route} from 'react-router-dom';
 import Display from './components/Display';
-import CharacterDetail from './components/CharacterDetail';
+import MovieDetail from './components/MovieDetail';
 import Search from './components/Search';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
@@ -10,7 +10,7 @@ class App extends React.Component {
     constructor() {
         super();
         this.state = {
-            characters: [],
+            movieResults: [],
             nominations: [],
             search: "",
             searched: false,
@@ -23,20 +23,6 @@ class App extends React.Component {
         this.handleSearch = this.handleSearch.bind(this);
     }
 
-    // onNextFrame(callback) {
-    //     setTimeout(function () {
-    //         requestAnimationFrame(callback)
-    //     }, 10)
-    // }
-
-    // componentDidUpdate() {
-    //     this.onNextFrame(() => {
-    //         if (this.state.nominations.length === 5) {
-    //             alert("Awesome! You've added your 5 nominations");
-    //         }
-    //     });
-    // }
-
     fetchMovies() {
         let uri = `http://www.omdbapi.com/?apikey=b49c2121&type=movie&s=${this.state.search}`;
         let encodedURI = encodeURI(uri)
@@ -44,16 +30,16 @@ class App extends React.Component {
         fetch(encodedURI)
             .then((response) => {
                 this.setState({
-                    characters: []
+                    movieResults: []
                 });
                 return response.json();
             })
             .then((data) => {
                 if (data.Response === "True") {
-                    data.Search.forEach((char) => {
+                    data.Search.forEach((movie) => {
                         this.setState((prevState) => {
                             return {
-                                characters: [...prevState.characters, char]
+                                movieResults: [...prevState.movieResults, movie]
                             }
                         });
                     });
@@ -62,10 +48,7 @@ class App extends React.Component {
                         error: data.Error
                     });
                 }
-            })
-            .then(() => {
-                console.log(this.state.characters);
-            });        
+            });      
     }
 
     // ***************** Event Handlers *****************
@@ -91,22 +74,22 @@ class App extends React.Component {
     }
 
     handleAdd(key) {
-        let targetChar;
+        let targetMovie;
 
         if (this.state.nominations.length >= 5) {
             alert("I am sorry, but you have too many nominations already... Dingus.");
         } else {
-            for (let i = 0; i < this.state.characters.length; i++) {
-                let currentChar = this.state.characters[i];
-                if (key === currentChar.imdbID) {
-                    targetChar = currentChar;
+            for (let i = 0; i < this.state.movieResults.length; i++) {
+                let currentMovie = this.state.movieResults[i];
+                if (key === currentMovie.imdbID) {
+                    targetMovie = currentMovie;
                     break;
                 }
             }
 
             this.setState((prevState) => {
                 return {
-                    nominations: [...prevState.nominations, targetChar]
+                    nominations: [...prevState.nominations, targetMovie]
                 }
             });
         }
@@ -142,13 +125,13 @@ class App extends React.Component {
                                 <Search handleChange={this.handleChange} handleSearch={this.handleSearch} value={this.state.search}/>
                             )} />
                             <Route path="/" exact component={() => (
-                                <Display title={results} movies={this.state.characters} handleClick={this.handleAdd} displayNominate={true} nominations={this.state.nominations} error={this.state.error} />
+                                <Display title={results} movies={this.state.movieResults} handleClick={this.handleAdd} displayNominate={true} nominations={this.state.nominations} error={this.state.error} />
                             )} />
                             <Route path="/" exact component={() => (
                                 <Display title="Current Nominations:" movies={this.state.nominations} handleClick={this.handleRemove} displayNominate={false} nominations={this.state.nominations} error={this.state.error} />
                             )} />
                             <Route path="/:imdbID" render={(props) => (
-                                <CharacterDetail handleAdd={this.handleAdd} handleRemove={this.handleRemove} nominations={this.state.nominations} {...props} />
+                                <MovieDetail handleAdd={this.handleAdd} handleRemove={this.handleRemove} nominations={this.state.nominations} {...props} />
                             )}/>
                     </div>
                 </BrowserRouter>

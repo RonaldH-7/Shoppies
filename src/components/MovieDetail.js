@@ -4,11 +4,11 @@ import Button from 'react-bootstrap/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
-class CharacterDetail extends React.Component {
+class MovieDetail extends React.Component {
     constructor() {
         super();
         this.state = {
-            characterInfo: {},
+            movieInfo: {},
             isLoading: false
         };
     }
@@ -29,7 +29,7 @@ class CharacterDetail extends React.Component {
             })
             .then((data) => {
                 this.setState({
-                    characterInfo: data,
+                    movieInfo: data,
                     isLoading: false
                 });
             });
@@ -38,7 +38,7 @@ class CharacterDetail extends React.Component {
     isNominated() {
         let nominations = this.props.nominations;
         for (let i = 0; i < nominations.length; i++) {
-            if (nominations[i].imdbID === this.state.characterInfo.imdbID) {
+            if (nominations[i].imdbID === this.state.movieInfo.imdbID) {
                 return true;
             }
         }
@@ -60,19 +60,19 @@ class CharacterDetail extends React.Component {
                         <h1 style={{display: "inline-block"}}>&nbsp;Loading</h1>
                     </div> :
                     <div>
-                        <h1>{this.state.characterInfo.Title}</h1>
+                        <h1>{this.state.movieInfo.Title}</h1>
                         <div className="flex-container">
                             <Link to="/">
                                 <Button size="sm">Home</Button>
                             </Link>
                             {button}
                         </div>
-                        <p>Year: {this.state.characterInfo.Year}</p>
-                        <p>Rated: {this.state.characterInfo.Rated}</p>
-                        <p>Released: {this.state.characterInfo.Released}</p>
-                        <p>Runtime: {this.state.characterInfo.Runtime}</p>
-                        <p>BoxOffice: {this.state.characterInfo.BoxOffice}</p>
-                        <p>Plot: {this.state.characterInfo.Plot}</p>
+                        <p>Year: {this.state.movieInfo.Year}</p>
+                        <p>Rated: {this.state.movieInfo.Rated}</p>
+                        <p>Released: {this.state.movieInfo.Released}</p>
+                        <p>Runtime: {this.state.movieInfo.Runtime}</p>
+                        <p>BoxOffice: {this.state.movieInfo.BoxOffice}</p>
+                        <p>Plot: {this.state.movieInfo.Plot}</p>
                     </div>
                 }
             </div>
@@ -80,4 +80,4 @@ class CharacterDetail extends React.Component {
     }
 }
 
-export default CharacterDetail;
+export default MovieDetail;
