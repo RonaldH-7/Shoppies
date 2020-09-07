@@ -7,16 +7,25 @@ body > #root > div {
     height: 100vh;
 }
 
+a {
+    color: rgb(90, 157, 189);
+}
+
+a:hover {
+    color: rgb(55, 101, 122);
+    text-decoration: none; 
+}
+
 /*** Header Component ***/
 
 header {
-    /* border: 1px solid black; */
     margin: 0 0 10px 0;
     padding: 10px;
     border-bottom: 1px solid lightgrey;
 }
 
 /*** Navigation Component ***/
+
 .nav-link {
     transition: color 0.2s;
     color: black;
@@ -34,9 +43,7 @@ header {
 
 .app-container {
     width: 75%;
-    /* height: 100%; */
     margin: auto;
-    /* background-color: #ECEBE4; */
 }
 
 .grid-container {
@@ -85,7 +92,6 @@ header {
 /*** Display Component ***/
 
 .display {
-    /* border: 1px solid black; */
     margin: 10px 0 10px 0;
     padding: 20px;
     border-collapse: collapse;
@@ -120,7 +126,6 @@ header {
     grid-column-start: 1;
     grid-column-end: 3;
     margin: 0.2em 0 0.2em 0;
-    /* justify-self: center; */
 }
 
 .movie-detail-buttons {

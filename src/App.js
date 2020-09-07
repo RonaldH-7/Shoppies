@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route} from 'react-router-dom';
 
-import { About, AlertDisplay, Contact, Display, Header, MovieDetail, Navigation, Search} from './components/Components';
+import { About, AlertDisplay, Contact, Display, Header, MovieDetail, Search} from './components/Components';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
