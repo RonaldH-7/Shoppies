@@ -18,8 +18,8 @@ class MovieItem extends React.Component {
             <Button variant={variant} size="sm" onClick={() => {this.props.handleClick(key)}} style={buttonStyle} >{buttonText}</Button>
         
         return (
-            <ListGroup.Item className="movieItem" variant="flush">
-                <Link to={`/detail/${key}`}>
+            <ListGroup.Item className="movie-item" variant="flush">
+                <Link className="movie-item-link" to={`/detail/${key}`}>
                     {this.props.movie.Title}
                 </Link>
                 {button}

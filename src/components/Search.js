@@ -24,7 +24,7 @@ class Search extends React.Component {
                     ref={(input) => {this.nameInput = input;}}
                 />
                 <Button 
-                    variant="primary" 
+                    // variant="primary" 
                     className="search-button"
                     onClick={() => {this.props.handleSearch()}}
                 >

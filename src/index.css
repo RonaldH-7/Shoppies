@@ -14,8 +14,15 @@ header {
     margin: 0 0 10px 0;
     padding: 10px;
     border-bottom: 1px solid lightgrey;
-    /* background-color: #429EA6; */
-    /* color: white; */
+}
+
+/*** Navigation Component ***/
+.nav-link {
+    color: black;
+}
+
+.nav-link:hover {
+    color: rgb(90, 157, 189);
 }
 
 /*** App Component***/
@@ -25,7 +32,7 @@ header {
 }
 
 .app-container {
-    width: 65%;
+    width: 75%;
     /* height: 100%; */
     margin: auto;
     /* background-color: #ECEBE4; */
@@ -33,6 +40,7 @@ header {
 
 .grid-container {
     display: grid;
+    width: 100%;
     grid-template-columns: 50% 50%;
     justify-self: center;
 }
@@ -44,6 +52,7 @@ header {
     grid-column-end: 3;
     margin: 10px 0 10px 0;
     padding: 10px;
+    width: 100%;
     /* border: 1px solid black; */
 }
 
@@ -57,9 +66,20 @@ header {
     border-radius: 0px;
 }
 
+.search:focus {
+    box-shadow: 0 0 0 1px rgba(90, 158, 189, 0.746)
+}
+
 .search-button {
     width: 5%;
     border-radius: 0px;
+    background-color: rgb(90, 157, 189);
+    border-color: rgb(90, 157, 189);
+}
+
+.search-button:hover {
+    background-color: rgb(78, 136, 163);
+    border-color: rgb(78, 136, 163);
 }
 
 /*** Display Component ***/
@@ -67,12 +87,13 @@ header {
 .display {
     /* border: 1px solid black; */
     margin: 10px 0 10px 0;
-    padding: 10px;
+    padding: 20px;
     border-collapse: collapse;
+    border-top: 1px solid rgb(222,222,222);
 }
 
 .display:first-of-type {
-    /* border-right: 0px; */
+    border-right: 1px solid rgb(222,222,222);
 }
 
 /*** MovieDetail Component ***/
@@ -112,11 +133,31 @@ header {
     margin-right: 10px;
 }
 
+.movie-detail-button:first-child {
+    margin-right: 10px;
+    background-color: rgb(90, 157, 189);
+    border-color: rgb(90, 157, 189);
+}
+
+.movie-detail-button:first-child:hover {
+    background-color: rgb(78, 136, 163);
+    border-color: rgb(78, 136, 163);
+}
+
 /*** MovieItem Component ***/
 
-.movieItem {
+.movie-item {
     overflow-wrap: break-word;
-    background-color: #f8f8f4;
+    background-color: #f6f6f3;
+}
+
+.movie-item-link {
+    color: rgb(90, 157, 189);
+}
+
+.movie-item-link:hover {
+    color: rgb(55, 101, 122);
+    text-decoration: none;
 }
 
 /*** AlertDisplay Component ***/

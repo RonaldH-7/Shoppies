@@ -6,17 +6,17 @@ class Navigation extends React.Component {
         return (
             <Nav>
                 <Nav.Item>
-                    <Nav.Link href="/">
+                    <Nav.Link className="nav-link" href="/">
                         Home
                     </Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link href="/about">
+                    <Nav.Link className="nav-link" href="/about">
                         About
                     </Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link href="/contact">
+                    <Nav.Link className="nav-link" href="/contact">
                         Contact
                     </Nav.Link>
                 </Nav.Item>
