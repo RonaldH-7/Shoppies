@@ -1,5 +1,6 @@
 import React from 'react';
 import CharacterItem from './CharacterItem';
+import ListGroup from 'react-bootstrap/ListGroup';
 
 class Display extends React.Component {
     render() {
@@ -21,9 +22,9 @@ class Display extends React.Component {
                 <h5>{this.props.title}</h5>
                 {
                     displayMovies.length ?
-                    <ul>
+                    <ListGroup>
                         {displayMovies}
-                    </ul> :
+                    </ListGroup> :
                     displayMsg
                 }
             </div>

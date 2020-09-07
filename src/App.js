@@ -135,7 +135,7 @@ class App extends React.Component {
             "Search for something!"
 
         return (
-            <div className="container">
+            <div className="app-container">
                 <BrowserRouter>
                     <div className="grid-container">
                             <Route path="/" exact component={() => (
