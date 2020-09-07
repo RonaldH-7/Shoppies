@@ -3,6 +3,7 @@ import { BrowserRouter, Route} from 'react-router-dom';
 import Display from './components/Display';
 import MovieDetail from './components/MovieDetail';
 import Search from './components/Search';
+import AlertDisplay from './components/AlertDisplay';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 
@@ -15,12 +16,15 @@ class App extends React.Component {
             search: "",
             searched: false,
             searchedTerm: "",
-            error: ""
+            error: "",
+            showAlert: false,
+            showAlertWarning: false
         };
         this.handleAdd = this.handleAdd.bind(this);
         this.handleRemove = this.handleRemove.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSearch = this.handleSearch.bind(this);
+        this.closeAlert = this.closeAlert.bind(this);
     }
 
     fetchMovies() {
@@ -77,7 +81,10 @@ class App extends React.Component {
         let targetMovie;
 
         if (this.state.nominations.length >= 5) {
-            alert("I am sorry, but you have too many nominations already... Dingus.");
+            // alert("I am sorry, but you have too many nominations already... Dingus.");
+            this.setState({
+                showAlertWarning: true
+            });
         } else {
             for (let i = 0; i < this.state.movieResults.length; i++) {
                 let currentMovie = this.state.movieResults[i];
@@ -95,7 +102,10 @@ class App extends React.Component {
         }
 
         if (this.state.nominations.length === 4) {
-            alert("Awesome! You've added your 5 nominations");
+            // alert("Awesome! You've added your 5 nominations");
+            this.setState({
+                showAlert: true
+            });
         }
     }
 
@@ -112,6 +122,18 @@ class App extends React.Component {
         });
     }
 
+    closeAlert(isWarning) {
+        let property = "showAlert";
+
+        if (isWarning) {
+            property = "showAlertWarning";
+        }
+        
+        this.setState({
+            [property]: false
+        });
+    }
+
     render() {
         let results = this.state.searched ? 
             `Results for "${this.state.searchedTerm}":` :
@@ -120,19 +142,22 @@ class App extends React.Component {
         return (
             <div className="app-container">
                 <BrowserRouter>
+                    <AlertDisplay show={this.state.showAlert} isWarning={false} handleClick={this.closeAlert} />
+                    <AlertDisplay show={this.state.showAlertWarning} isWarning={true} handleClick={this.closeAlert} />
                     <div className="grid-container">
-                            <Route path="/" exact component={() => (
-                                <Search handleChange={this.handleChange} handleSearch={this.handleSearch} value={this.state.search}/>
-                            )} />
-                            <Route path="/" exact component={() => (
-                                <Display title={results} movies={this.state.movieResults} handleClick={this.handleAdd} displayNominate={true} nominations={this.state.nominations} error={this.state.error} />
-                            )} />
-                            <Route path="/" exact component={() => (
-                                <Display title="Current Nominations:" movies={this.state.nominations} handleClick={this.handleRemove} displayNominate={false} nominations={this.state.nominations} error={this.state.error} />
-                            )} />
-                            <Route path="/:imdbID" render={(props) => (
-                                <MovieDetail handleAdd={this.handleAdd} handleRemove={this.handleRemove} nominations={this.state.nominations} {...props} />
-                            )}/>
+                        
+                        <Route path="/" exact component={() => (
+                            <Search handleChange={this.handleChange} handleSearch={this.handleSearch} value={this.state.search}/>
+                        )} />
+                        <Route path="/" exact component={() => (
+                            <Display title={results} movies={this.state.movieResults} handleClick={this.handleAdd} displayNominate={true} nominations={this.state.nominations} error={this.state.error} />
+                        )} />
+                        <Route path="/" exact component={() => (
+                            <Display title="Current Nominations:" movies={this.state.nominations} handleClick={this.handleRemove} displayNominate={false} nominations={this.state.nominations} error={this.state.error} />
+                        )} />
+                        <Route path="/:imdbID" render={(props) => (
+                            <MovieDetail handleAdd={this.handleAdd} handleRemove={this.handleRemove} nominations={this.state.nominations} {...props} />
+                        )}/>
                     </div>
                 </BrowserRouter>
             </div>

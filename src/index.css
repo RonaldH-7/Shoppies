@@ -54,3 +54,19 @@
 .movieItem {
     overflow-wrap: break-word;
 }
+
+.close-icon {
+    float: right;
+}
+
+.close-icon:hover {
+    cursor: pointer;
+}
+
+.alert-text {
+    display: inline;
+}
+
+.test {
+    width: 100%;
+}
