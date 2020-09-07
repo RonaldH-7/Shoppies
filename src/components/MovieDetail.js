@@ -9,18 +9,37 @@ class MovieDetail extends React.Component {
         super();
         this.state = {
             movieInfo: {},
+            poster: {},
+            hasPoster: false,
             isLoading: false
         };
     }
+
     componentDidMount() {
-        console.log(this.props.match.params.imdbID);
-
         let imdbID = this.props.match.params.imdbID;
+        this.fetchPoster(imdbID);
+        this.fetchMovie(imdbID);
+    }
 
+    fetchPoster(imdbID) {
+        let uri = `http://img.omdbapi.com/?apikey=b49c2121&i=${imdbID}`;
+        let encodedURI = encodeURI(uri)
+
+        fetch(encodedURI)
+            .then((response) => {
+                if (response.status !== 404) {
+                    this.setState({
+                        poster: response.url,
+                        hasPoster: true
+                    });
+                }
+            });
+    }
+
+    fetchMovie(imdbID) {
         let uri = `http://www.omdbapi.com/?apikey=b49c2121&i=${imdbID}`;
         let encodedURI = encodeURI(uri)
-        console.log(encodedURI);
-
+        
         this.setState({isLoading: true});
 
         fetch(encodedURI)
@@ -50,6 +69,9 @@ class MovieDetail extends React.Component {
         let button = this.isNominated() ?
             <Button variant="danger" size="sm" onClick={()=>{this.props.handleRemove(key)}}>Remove</Button> :
             <Button variant="success" size="sm" onClick={()=>{this.props.handleAdd(key)}}>Nominate</Button>;
+        let image = this.state.hasPoster ? 
+            <img src={this.state.poster} alt={`Movie poster for ${this.state.movieInfo.Title}`}/> :
+            null;
 
         return (
             <div className="flex-container">
@@ -67,6 +89,7 @@ class MovieDetail extends React.Component {
                             </Link>
                             {button}
                         </div>
+                        {image}
                         <p>Year: {this.state.movieInfo.Year}</p>
                         <p>Rated: {this.state.movieInfo.Rated}</p>
                         <p>Runtime: {this.state.movieInfo.Runtime}</p>

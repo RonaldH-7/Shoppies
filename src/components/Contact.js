@@ -11,7 +11,6 @@ class Contact extends React.Component {
                     You can connect with Ron at: 
                 </p>
                 <ul>
-                    <li><a href="mailto:ronald.hua7@gmail.com">ronald.hua7@gmail.com</a></li>
                     <li><a href="https://linkedin.com/in/ronald-hua">linkedin.com/in/ronald-hua</a></li>
                     <li><a href="https://github.com/RonaldH-7">github.com/RonaldH-7</a></li>
                 </ul>
