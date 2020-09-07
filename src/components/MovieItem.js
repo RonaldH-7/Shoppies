@@ -19,7 +19,7 @@ class MovieItem extends React.Component {
         
         return (
             <ListGroup.Item className="movieItem" variant="flush">
-                <Link to={`/${key}`}>
+                <Link to={`/detail/${key}`}>
                     {this.props.movie.Title}
                 </Link>
                 {button}

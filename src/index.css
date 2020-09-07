@@ -1,7 +1,12 @@
 .display {
     border: 1px solid black;
-    margin: 10px;
+    margin: 10px 0 10px 0;
     padding: 10px;
+    border-collapse: collapse;
+}
+
+.display:first-of-type {
+    border-right: 0px;
 }
 
 .flex-container {
@@ -28,9 +33,13 @@
 .search-component {
     grid-column-start: 1;
     grid-column-end: 3;
-    margin: 10px;
+    margin: 10px 0 10px 0;
     padding: 10px;
     border: 1px solid black;
+}
+
+.search-description {
+    margin-bottom: 5px;
 }
 
 .loading {
@@ -67,6 +76,12 @@
     display: inline;
 }
 
-.test {
-    width: 100%;
+header {
+    border: 1px solid black;
+    margin: 10px 0 10px 0;
+    padding: 10px;
+}
+
+.about-container {
+    width: 60%;
 }

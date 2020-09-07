@@ -69,7 +69,6 @@ class MovieDetail extends React.Component {
                         </div>
                         <p>Year: {this.state.movieInfo.Year}</p>
                         <p>Rated: {this.state.movieInfo.Rated}</p>
-                        <p>Released: {this.state.movieInfo.Released}</p>
                         <p>Runtime: {this.state.movieInfo.Runtime}</p>
                         <p>BoxOffice: {this.state.movieInfo.BoxOffice}</p>
                         <p>Plot: {this.state.movieInfo.Plot}</p>

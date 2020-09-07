@@ -12,25 +12,24 @@ class Search extends React.Component {
     render() {
         return (
             <Form className="search-component" onSubmit={(event) => {event.preventDefault()}}>
-                <Form.Group controlId="search">
-                    <Form.Control
-                        type="text" 
-                        placeholder="Search by movie title..." 
-                        className="search" 
-                        name="search" 
-                        value={this.props.value} 
-                        onChange={(event) => {this.props.handleChange(event)}}
-                        onKeyDown={(event) => {this.props.handleSearch(event)}}
-                        ref={(input) => {this.nameInput = input;}}
-                    />
-                    <Button 
-                        variant="primary" 
-                        className="search-button"
-                        onClick={() => {this.props.handleSearch()}}
-                    >
-                        <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
-                    </Button>
-                </Form.Group>
+                <p className="search-description"><strong>Search by movie title:</strong></p>
+                <Form.Control
+                    type="text" 
+                    placeholder="Search..." 
+                    className="search" 
+                    name="search" 
+                    value={this.props.value} 
+                    onChange={(event) => {this.props.handleChange(event)}}
+                    onKeyDown={(event) => {this.props.handleSearch(event)}}
+                    ref={(input) => {this.nameInput = input;}}
+                />
+                <Button 
+                    variant="primary" 
+                    className="search-button"
+                    onClick={() => {this.props.handleSearch()}}
+                >
+                    <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
+                </Button>
             </Form>
         );
     }
