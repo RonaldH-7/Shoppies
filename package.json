@@ -2,7 +2,7 @@
   "name": "shoppies",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://RonaldH-7.github.io/Shoppies",
+  "homepage": "http://ronaldH-7.github.io/shoppies",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
     "@fortawesome/free-solid-svg-icons": "^5.14.0",
