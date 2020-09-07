@@ -1,24 +1,25 @@
 import React from 'react';
 import Nav from 'react-bootstrap/Nav'
+import { Link } from 'react-router-dom';
 
 class Navigation extends React.Component {
     render() {
         return (
             <Nav>
                 <Nav.Item>
-                    <Nav.Link className="nav-link" href="/">
+                    <Link className="nav-link" to="/">
                         Home
-                    </Nav.Link>
+                    </Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link className="nav-link" href="/about">
+                    <Link className="nav-link" to="/about">
                         About
-                    </Nav.Link>
+                    </Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link className="nav-link" href="/contact">
+                    <Link className="nav-link" to="/contact">
                         Contact
-                    </Nav.Link>
+                    </Link>
                 </Nav.Item>
             </Nav>
         );

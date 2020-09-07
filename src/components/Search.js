@@ -17,7 +17,8 @@ class Search extends React.Component {
                     className="search" 
                     type="text" 
                     placeholder="Search..." 
-                    name="search" 
+                    name="search"
+                    size="sm"
                     value={this.props.value} 
                     onChange={(event) => {this.props.handleChange(event)}}
                     onKeyDown={(event) => {this.props.handleSearch(event)}}
@@ -27,6 +28,7 @@ class Search extends React.Component {
                     // variant="primary" 
                     className="search-button"
                     onClick={() => {this.props.handleSearch()}}
+                    size="sm"
                 >
                     <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
                 </Button>

@@ -1,6 +1,6 @@
 import React from 'react';
-import MovieItem from './MovieItem';
 import ListGroup from 'react-bootstrap/ListGroup';
+import MovieItem from './MovieItem';
 
 class Display extends React.Component {
     render() {

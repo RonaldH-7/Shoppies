@@ -8,11 +8,12 @@ function AlertDisplay(props) {
     let msg = props.isWarning ?
         "You can't have more than 5 nominations!" :
         "Awesome! You've added your 5 nominations!";
+    let className = props.isWarning ? "close-icon-warning" : "close-icon";
 
     return (
-        <Alert show={props.show} variant={variant} className="test">
+        <Alert show={props.show} variant={variant} >
             <p className="alert-text">{msg}</p>
-            <FontAwesomeIcon icon={faWindowClose} size="2x" onClick={() => props.handleClick(props.isWarning)} className="close-icon"/>
+            <FontAwesomeIcon icon={faWindowClose} size="2x" onClick={() => props.handleClick(props.isWarning)} className={className}/>
         </Alert>
     );
 }

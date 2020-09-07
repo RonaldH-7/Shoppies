@@ -20,7 +20,8 @@ class MovieItem extends React.Component {
         return (
             <ListGroup.Item className="movie-item" variant="flush">
                 <Link className="movie-item-link" to={`/detail/${key}`}>
-                    {this.props.movie.Title}
+                    {/* {this.props.movie.Title} */}
+                    {`${this.props.movie.Title} (${this.props.movie.Year})`}
                 </Link>
                 {button}
             </ListGroup.Item>
