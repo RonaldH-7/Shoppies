@@ -1,6 +1,7 @@
 import React from 'react';
 import ListGroup from 'react-bootstrap/ListGroup';
 import MovieItem from './MovieItem';
+import Loading from './Loading';
 
 class Display extends React.Component {
     render() {
@@ -21,11 +22,13 @@ class Display extends React.Component {
             <div className="display">
                 <h5>{this.props.title}</h5>
                 {
-                    displayMovies.length ?
-                    <ListGroup>
-                        {displayMovies}
-                    </ListGroup> :
-                    displayMsg
+                    this.props.isLoading ?
+                        <Loading /> :
+                            displayMovies.length ?
+                            <ListGroup>
+                                {displayMovies}
+                            </ListGroup> :
+                            displayMsg
                 }
             </div>
         );

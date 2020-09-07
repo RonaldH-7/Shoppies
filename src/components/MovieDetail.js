@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import MovieDetailItem from './MovieDetailItem';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+
+import MovieDetailItem from './MovieDetailItem';
+import Loading from './Loading';
 
 class MovieDetail extends React.Component {
     constructor() {
@@ -74,12 +74,7 @@ class MovieDetail extends React.Component {
         let imageJSX = this.state.hasPoster ? 
             <img src={this.state.poster} alt={`Movie poster for ${this.state.movieInfo.Title}`} style={{marginLeft: "20px"}} /> :
             null;
-        let loadingJSX = (
-            <div className="loading">
-                <FontAwesomeIcon icon={faSpinner} spin size="2x" />
-                <h1 style={{display: "inline-block"}}>&nbsp;Loading</h1>
-            </div>
-        );
+
         let movieDetailJSX = (
             <div className="movie-detail-container">
                 <h2 className="movie-detail-title">{this.state.movieInfo.Title}</h2>
@@ -109,7 +104,7 @@ class MovieDetail extends React.Component {
             <div>
                 {
                     this.state.isLoading ?
-                        loadingJSX :
+                        <Loading /> :
                         movieDetailJSX
                 }
             </div>

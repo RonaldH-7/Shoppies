@@ -194,7 +194,8 @@ class App extends React.Component {
             searchedTerm: "",
             error: "",
             showAlert: false,
-            showAlertWarning: false
+            showAlertWarning: false,
+            isLoading: false
         };
         this.handleAdd = this.handleAdd.bind(this);
         this.handleRemove = this.handleRemove.bind(this);
@@ -206,6 +207,10 @@ class App extends React.Component {
     fetchMovies() {
         let uri = `https://www.omdbapi.com/?apikey=b49c2121&type=movie&s=${this.state.search}`;
         let encodedURI = encodeURI(uri)
+
+        this.setState({
+            isLoading: true
+        });
 
         fetch(encodedURI)
             .then((response) => {
@@ -219,13 +224,15 @@ class App extends React.Component {
                     data.Search.forEach((movie) => {
                         this.setState((prevState) => {
                             return {
-                                movieResults: [...prevState.movieResults, movie]
+                                movieResults: [...prevState.movieResults, movie],
+                                isLoading: false
                             }
                         });
                     });
                 } else {
                     this.setState({
-                        error: data.Error
+                        error: data.Error,
+                        isLoading: false
                     });
                 }
             });      
@@ -336,8 +343,8 @@ class App extends React.Component {
                         <Route path="/" component={() => (
                             <div className="grid-container">
                                 <Search handleChange={this.handleChange} handleSearch={this.handleSearch} value={this.state.search}/>
-                                <Display title={results} movies={this.state.movieResults} handleClick={this.handleAdd} displayNominate={true} nominations={this.state.nominations} error={this.state.error} />
-                                <Display title="Current Nominations:" movies={this.state.nominations} handleClick={this.handleRemove} displayNominate={false} nominations={this.state.nominations} error={this.state.error} />
+                                <Display title={results} movies={this.state.movieResults} handleClick={this.handleAdd} displayNominate={true} nominations={this.state.nominations} error={this.state.error} isLoading={this.state.isLoading} />
+                                <Display title="Current Nominations:" movies={this.state.nominations} handleClick={this.handleRemove} displayNominate={false} nominations={this.state.nominations} error={this.state.error} isLoading={false} />
                             </div>
                         )} />
                     </Switch>
