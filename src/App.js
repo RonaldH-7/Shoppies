@@ -61,8 +61,6 @@ class App extends React.Component {
             });      
     }
 
-    // ***************** Event Handlers *****************
-
     handleChange(event) {
         let {name, value} = event.target;
 
@@ -87,7 +85,6 @@ class App extends React.Component {
         let targetMovie;
 
         if (this.state.nominations.length >= 5) {
-            // alert("I am sorry, but you have too many nominations already... Dingus.");
             this.setState({
                 showAlertWarning: true
             });
@@ -108,7 +105,6 @@ class App extends React.Component {
         }
 
         if (this.state.nominations.length === 4) {
-            // alert("Awesome! You've added your 5 nominations");
             this.setState({
                 showAlert: true
             });
