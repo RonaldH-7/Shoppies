@@ -164,7 +164,7 @@ class App extends React.Component {
                         )}/>
 
                         <Route path="/" component={() => (
-                            <div className="grid-container">
+                            <div className="app-display-container">
                                 <Search handleChange={this.handleChange} handleSearch={this.handleSearch} value={this.state.search}/>
                                 <Display title={results} movies={this.state.movieResults} handleClick={this.handleAdd} displayNominate={true} nominations={this.state.nominations} error={this.state.error} isLoading={this.state.isLoading} />
                                 <Display title="Current Nominations:" movies={this.state.nominations} handleClick={this.handleRemove} displayNominate={false} nominations={this.state.nominations} error={this.state.error} isLoading={false} />

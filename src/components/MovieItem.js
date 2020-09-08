@@ -5,17 +5,17 @@ import ListGroup from 'react-bootstrap/ListGroup';
 
 class MovieItem extends React.Component {
     render() {
-        const buttonStyle = {
-            float: "right",
-            display: "inline-block"
-        }
+        // const buttonStyle = {
+        //     float: "right",
+        //     display: "inline-block"
+        // }
 
         let key = this.props.movie.imdbID;
         let buttonText = this.props.displayNominate ? "Nominate" : "Remove";
         let variant = this.props.displayNominate ? "success" : "danger";
         let button = this.props.displayNominate ? 
-            <Button variant={variant} size="sm" onClick={() => {this.props.handleClick(key)}} style={buttonStyle} disabled={this.isNominated()} >{buttonText}</Button> : 
-            <Button variant={variant} size="sm" onClick={() => {this.props.handleClick(key)}} style={buttonStyle} >{buttonText}</Button>
+            <Button className="movie-item-button" variant={variant} size="sm" onClick={() => {this.props.handleClick(key)}} disabled={this.isNominated()} block={false} >{buttonText}</Button> : 
+            <Button className="movie-item-button" variant={variant} size="sm" onClick={() => {this.props.handleClick(key)}} block={false} >{buttonText}</Button>
         
         return (
             <ListGroup.Item className="movie-item" variant="flush">

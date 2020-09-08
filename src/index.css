@@ -29,6 +29,20 @@ header {
     align-items: center;
 }
 
+.nav-bar {
+    padding: 0px;
+}
+
+.logo {
+    margin-right: 0px;
+}
+
+@media only screen and (max-width: 1000px) {
+    .logo {
+        display: none;
+    }
+}
+
 /*** Navigation Component ***/
 
 .nav-link {
@@ -51,11 +65,18 @@ header {
     margin: auto;
 }
 
-.grid-container {
-    display: grid;
+.app-display-container {
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    grid-template-columns: 50% 50%;
     justify-self: center;
+}
+
+@media only screen and (min-width: 1000px) {
+    .app-display-container {
+        display: grid;
+        grid-template-columns: 50% 50%;
+    }
 }
 
 /*** Search Component ***/
@@ -66,6 +87,10 @@ header {
     margin: 10px 0 10px 0;
     padding: 10px;
     width: 100%;
+}
+
+.search-component-flex {
+    display: flex;
 }
 
 .search-description {
@@ -84,6 +109,7 @@ header {
 
 .search-button {
     width: 5%;
+    min-width: 30px;
     border-radius: 0px;
     background-color: rgb(90, 157, 189);
     border-color: rgb(90, 157, 189);
@@ -103,8 +129,10 @@ header {
     border-top: 1px solid rgb(222,222,222);
 }
 
-.display:first-of-type {
-    border-right: 1px solid rgb(222,222,222);
+@media only screen and (min-width: 1000px) {
+    .display:first-of-type {
+        border-right: 1px solid rgb(222,222,222);
+    }
 }
 
 /*** MovieDetail Component ***/
@@ -122,9 +150,17 @@ header {
 }
 
 .movie-detail-container {
-    display: grid;
-    grid-template-columns: 40% auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     padding: 10px;
+}
+
+@media only screen and (min-width: 1000px) {
+    .movie-detail-container {
+        display: grid;
+        grid-template-columns: 40% auto;
+    }
 }
 
 .movie-detail-title {
@@ -165,6 +201,14 @@ header {
     background-color: #f6f6f3;
 }
 
+@media only screen and (min-width: 1000px) {
+    .movie-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
 .movie-item-link {
     color: rgb(90, 157, 189);
 }
@@ -172,6 +216,17 @@ header {
 .movie-item-link:hover {
     color: rgb(55, 101, 122);
     text-decoration: none;
+}
+
+.movie-item-button {
+    display: block;
+}
+
+@media only screen and (min-width: 1000px) {
+    .movie-item-button {
+        float: right;
+        display: inline-block;
+    }
 }
 
 /*** AlertDisplay Component ***/

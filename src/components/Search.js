@@ -13,25 +13,26 @@ class Search extends React.Component {
         return (
             <Form className="search-component" onSubmit={(event) => {event.preventDefault()}}>
                 <p className="search-description"><strong>Search by movie title:</strong></p>
-                <Form.Control
-                    className="search" 
-                    type="text" 
-                    placeholder="Search..." 
-                    name="search"
-                    size="sm"
-                    value={this.props.value} 
-                    onChange={(event) => {this.props.handleChange(event)}}
-                    onKeyDown={(event) => {this.props.handleSearch(event)}}
-                    ref={(input) => {this.nameInput = input;}}
-                />
-                <Button 
-                    // variant="primary" 
-                    className="search-button"
-                    onClick={() => {this.props.handleSearch()}}
-                    size="sm"
-                >
-                    <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
-                </Button>
+                    <div className="search-component-flex">
+                        <Button 
+                                className="search-button"
+                                onClick={() => {this.props.handleSearch()}}
+                                size="sm"
+                            >
+                            <FontAwesomeIcon className="search-button-icon" icon={faSearch}></FontAwesomeIcon>
+                        </Button>
+                        <Form.Control
+                            className="search" 
+                            type="text" 
+                            placeholder="Search..." 
+                            name="search"
+                            size="sm"
+                            value={this.props.value} 
+                            onChange={(event) => {this.props.handleChange(event)}}
+                            onKeyDown={(event) => {this.props.handleSearch(event)}}
+                            ref={(input) => {this.nameInput = input;}}
+                        />
+                    </div>
             </Form>
         );
     }
